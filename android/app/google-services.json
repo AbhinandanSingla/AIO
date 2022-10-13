@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "452607700539",
+    "project_id": "aio-management-system",
+    "storage_bucket": "aio-management-system.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:452607700539:android:c2921d6fc643106c52761e",
+        "android_client_info": {
+          "package_name": "com.example.dbms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "452607700539-f570o0moqadcnvp10ch274tp0f51rc3b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCltt9h6NuIlJAmFqr84LBSO6z0Oi6Iy48"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "452607700539-f570o0moqadcnvp10ch274tp0f51rc3b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

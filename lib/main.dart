@@ -1,4 +1,6 @@
 import 'package:dbms/pages/collectedScreen.dart';
+import 'package:dbms/pages/laundry.dart';
+import 'package:dbms/pages/laundryScreen.dart';
 import 'package:dbms/pages/loginScreen.dart';
 import 'package:dbms/services/sharedpreferences.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -21,7 +23,7 @@ class MyApp extends StatelessWidget {
     pref.init();
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SafeArea(child: CollectCloth()),
+      home: SafeArea(child: LoginScreen()),
     );
   }
 }

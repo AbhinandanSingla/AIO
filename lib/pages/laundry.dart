@@ -24,7 +24,7 @@ class _LaundryScreenState extends State<LaundryScreen> {
           setState(() => {given = false}),
           Navigator.of(context).pushReplacement(MaterialPageRoute(
               builder: (ctx) => LaundryScan(
-                    userType: "laundry",
+                    usertype: "laundry",
                     uid: widget.uid,
                   )))
         });

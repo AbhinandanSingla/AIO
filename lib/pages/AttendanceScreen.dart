@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
@@ -27,23 +28,22 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
   }
 
   Future scanBarcodeNormal() async {
-    String barcodeScanRes = "102183001";
+    String barcodeScanRes='';
     try {
-      // barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-      //     '#ff6666', 'Cancel', true, ScanMode.BARCODE);
+      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+          '#ff6666', 'Cancel', true, ScanMode.BARCODE);
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
     }
     if (barcodeScanRes == '-1') {
       if (kDebugMode) {
+        return '-1';
         print('cancel');
       }
     } else {
       if (kDebugMode) {
         return barcodeScanRes;
       }
-      // Navigator.push(
-      //     context, MaterialPageRoute(builder: (ctx) => LoginScreen()));
     }
     if (!mounted) return '';
   }
@@ -94,10 +94,15 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                               {
                                 print("+++++++++++++++"),
                                 print(widget.uid),
-                                await AuthService()
-                                    .markAttendance(
-                                        rollno: value, uid: widget.uid)
-                                    .then((val) => {timer()})
+                                print("$value ++++++++++++++++++++++"),
+                                if (value != '-1')
+                                  {
+                                    print("attendance marks"),
+                                    await AuthService()
+                                        .markAttendance(
+                                            rollno: value, uid: widget.uid)
+                                        .then((val) => {timer()})
+                                  }
                               }
                           });
                     },

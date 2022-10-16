@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dbms/pages/AttendanceScreen.dart';
 import 'package:dbms/pages/getLaundry.dart';
+import 'package:dbms/pages/laundryScreen.dart';
 import 'package:dbms/services/authenciate.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -152,11 +153,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                   else if (value['data'].get("userType") ==
                                       'laundry')
                                     {
-                                      Navigator.of(context)
-                                          .push(MaterialPageRoute(
-                                              builder: (ctx) => LaundryScan(
-                                                    userType: value['data']
-                                                        .get("userType"),
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (ctx) =>
+                                                  MainLaundryScreen(
                                                     uid: value['user'].user.uid,
                                                   )))
                                     }

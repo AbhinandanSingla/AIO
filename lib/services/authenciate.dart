@@ -71,15 +71,16 @@ class AuthService extends GetxController {
 
   Future<String> markAttendance({String? rollno, String? uid}) async {
     bool lateEntry = false;
-    await _firestore.collection('hostel attendance').doc("K").update({
-      "attendance": FieldValue.arrayUnion([
-        {
-          "caretakerId": uid,
-          "time": DateTime.now(),
-          "rollno": rollno,
-          "lateEntry": lateEntry
-        }
-      ])
+    await _firestore
+        .collection('hostel attendance')
+        .doc("K")
+        .collection('attendance')
+        .doc()
+        .set({
+      "caretakerId": uid,
+      "time": DateTime.now(),
+      "rollno": rollno,
+      "lateEntry": lateEntry,
     });
     print("sucesss");
     return 'success';

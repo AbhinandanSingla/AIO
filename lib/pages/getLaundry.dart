@@ -30,15 +30,16 @@ class _AttendanceScreenState extends State<LaundryScan> {
   }
 
   Future scanBarcodeNormal() async {
-    String barcodeScanRes = "102183001";
+    String barcodeScanRes;
     try {
-      // barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-      //     '#ff6666', 'Cancel', true, ScanMode.BARCODE);
+      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+          '#ff6666', 'Cancel', true, ScanMode.BARCODE);
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
     }
     if (barcodeScanRes == '-1') {
       if (kDebugMode) {
+        print("++++++++++++++++++++++++++++++++");
         return '-1';
       }
     } else {
@@ -55,12 +56,11 @@ class _AttendanceScreenState extends State<LaundryScan> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        appBar: AppBar(leading: BackButton(
-          onPressed: () {
-            Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (ctx) => MainLaundryScreen(uid: widget.uid)));
-          },
-        )),
+        appBar: AppBar(
+            backgroundColor: Colors.redAccent,
+            centerTitle: true,
+            title: Text("${widget.usertype}"),
+            leading: BackButton()),
         body: SingleChildScrollView(
           child: Stack(
             children: [
@@ -105,7 +105,7 @@ class _AttendanceScreenState extends State<LaundryScan> {
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold)),
                           onPressed: () {
-                            if (widget.usertype == "collection") {
+                            if (widget.usertype == "Collect Laundry") {
                               scanBarcodeNormal().then((value) async => {
                                     Navigator.of(context).push(
                                         MaterialPageRoute(
@@ -114,12 +114,15 @@ class _AttendanceScreenState extends State<LaundryScan> {
                                   });
                             } else {
                               scanBarcodeNormal().then((value) async => {
-                                    Navigator.of(context)
-                                        .push(MaterialPageRoute(
-                                            builder: (ctx) => LaundryScreen(
-                                                  uid: widget.uid,
-                                                  rollno: value,
-                                                )))
+                                    if (value != '-1')
+                                      {
+                                        Navigator.of(context)
+                                            .push(MaterialPageRoute(
+                                                builder: (ctx) => LaundryScreen(
+                                                      uid: widget.uid,
+                                                      rollno: value,
+                                                    )))
+                                      }
                                   });
                             }
                           },

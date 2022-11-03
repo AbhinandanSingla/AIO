@@ -2,6 +2,7 @@ import 'package:dbms/pages/collectedScreen.dart';
 import 'package:dbms/pages/laundry.dart';
 import 'package:dbms/pages/laundryScreen.dart';
 import 'package:dbms/pages/loginScreen.dart';
+import 'package:dbms/pages/teacher.dart';
 import 'package:dbms/services/sharedpreferences.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

@@ -64,7 +64,7 @@ class _LaundryScreenState extends State<LaundryScreen> {
           backgroundColor: Colors.transparent,
           foregroundColor: Colors.black,
           elevation: 0,
-          leading: Icon(Icons.arrow_back)),
+          leading: BackButton()),
       body: Form(
         key: _key,
         child: Stack(

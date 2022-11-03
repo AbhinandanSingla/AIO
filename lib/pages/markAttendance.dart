@@ -1,4 +1,5 @@
 import 'package:dbms/pages/loginScreen.dart';
+import 'package:dbms/pages/teacher.dart';
 import 'package:dbms/services/authenciate.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -8,18 +9,18 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
-class AttendanceScreen extends StatefulWidget {
-  const AttendanceScreen({Key? key, this.userType, this.uid, this.hostel})
+class MarkAttendance extends StatefulWidget {
+  const MarkAttendance({Key? key, this.uid, this.sessionId, this.subjectName})
       : super(key: key);
-  final String? userType;
   final String? uid;
-  final String? hostel;
+  final String? sessionId;
+  final String? subjectName;
 
   @override
-  State<AttendanceScreen> createState() => _AttendanceScreenState();
+  State<MarkAttendance> createState() => _AttendanceScreenState();
 }
 
-class _AttendanceScreenState extends State<AttendanceScreen> {
+class _AttendanceScreenState extends State<MarkAttendance> {
   Dio dio = Dio();
   bool attendance = false;
 
@@ -56,13 +57,12 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
-            title: Text("Hostel ${widget.hostel}"),
             backgroundColor: Colors.redAccent,
-            centerTitle: true,
+            title: Text("${widget.subjectName}"),
             leading: BackButton(
               onPressed: () => {
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (ctx) => const LoginScreen()))
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (ctx) => TeacherScreen(uid: widget.uid)))
               },
             )),
         body: SingleChildScrollView(
@@ -105,21 +105,15 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                           onPressed: () {
                             scanBarcodeNormal().then((value) async => {
                                   print(value),
-                                  print(widget.userType),
-                                  if (widget.userType == 'caretaker')
+                                  if (value != '-1')
                                     {
-                                      print("+++++++++++++++"),
-                                      print(widget.uid),
-                                      print("$value ++++++++++++++++++++++"),
-                                      if (value != '-1')
-                                        {
-                                          print("attendance marks"),
-                                          await AuthService()
-                                              .markAttendance(
-                                                  rollno: value,
-                                                  uid: widget.uid)
-                                              .then((val) => {timer()})
-                                        }
+                                      print("attendance marks"),
+                                      await AuthService()
+                                          .classAttendance(
+                                              rollno: value,
+                                              uid: widget.uid,
+                                              sessionID: widget.sessionId)
+                                          .then((val) => {timer()})
                                     }
                                 });
                           },

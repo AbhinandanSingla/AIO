@@ -14,7 +14,6 @@ class AuthService extends GetxController {
     required String email,
     required String password,
     required String userType,
-    required String hostel,
   }) async {
     try {
       user = await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -24,7 +23,6 @@ class AuthService extends GetxController {
       _firestore.collection('user').doc(user.user?.uid).set({
         "username": user.user?.email,
         "userType": userType,
-        "hostel": hostel
       });
       return 'Success';
     } on FirebaseAuthException catch (e) {
@@ -56,7 +54,7 @@ class AuthService extends GetxController {
         print(e.code);
         return {"status": 401, "message": 'No user found for that email.'};
       } else if (e.code == 'wrong-password') {
-        print(e.code);
+        print("${e.code}+++++++++++++++++++++++++++++++++++++++");
         return {
           "status": 402,
           "message": 'Wrong password provided for that user.'
@@ -84,6 +82,19 @@ class AuthService extends GetxController {
     });
     print("sucesss");
     return 'success';
+  }
+
+  classAttendance({String? uid, String? sessionID, String? rollno}) async {
+    int status = 400;
+    await _firestore
+        .collection("teacher")
+        .doc(uid)
+        .collection("sessions")
+        .doc(sessionID)
+        .update({
+      'attendance': FieldValue.arrayUnion([rollno])
+    }).then((value) => status = 200);
+    return status;
   }
 
   giveLaundry(List laundrylist, String? rollno, String? uid) async {

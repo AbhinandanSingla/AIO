@@ -85,32 +85,34 @@ class _CollectClothState extends State<CollectCloth> {
                 if (snapshot.data == null) {
                   return Container();
                 } else {
-                  DateTime time = snapshot.data.docs[0]
-                      .data()["cloth_given_timestamp"]
-                      .toDate();
                   return ListView.builder(
                     shrinkWrap: true,
                     itemCount: snapshot.data?.docs.length,
-                    itemBuilder: (ctx, index) => ListTile(
-                      title: Text(
-                          "${time.day} ${monthNames[time.month - 1]} ${time.year}",
-                          style: GoogleFonts.openSans(fontSize: 20)),
-                      subtitle: Text(days[time.weekday]),
-                      trailing: Container(
-                          padding: EdgeInsets.only(
-                              left: 20, bottom: 0, right: 20, top: 0),
-                          decoration: BoxDecoration(
-                              color: Colors.blue,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: TextButton(
-                            onPressed: () {
-                              update(snapshot.data.docs[index].id);
-                            },
-                            child: Text("Collected",
-                                style: GoogleFonts.openSans(
-                                    color: Colors.black, fontSize: 20)),
-                          )),
-                    ),
+                    itemBuilder: (ctx, index) {
+                      DateTime time = snapshot.data.docs[index]
+                          .data()["cloth_given_timestamp"]
+                          .toDate();
+                      return ListTile(
+                        title: Text(
+                            "${time.day} ${monthNames[time.month - 1]} ${time.year}",
+                            style: GoogleFonts.openSans(fontSize: 20)),
+                        subtitle: Text(days[time.weekday]),
+                        trailing: Container(
+                            padding: EdgeInsets.only(
+                                left: 20, bottom: 0, right: 20, top: 0),
+                            decoration: BoxDecoration(
+                                color: Colors.blue,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: TextButton(
+                              onPressed: () {
+                                update(snapshot.data.docs[index].id);
+                              },
+                              child: Text("Collected",
+                                  style: GoogleFonts.openSans(
+                                      color: Colors.black, fontSize: 20)),
+                            )),
+                      );
+                    },
                   );
                 }
               })

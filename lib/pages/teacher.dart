@@ -87,7 +87,7 @@ class _TeacherScreenState extends State<TeacherScreen> {
 
                         },
                           background: Container(
-                            color: Colors.red,alignment: Alignment.bottomRight,
+                            color: Colors.redAccent,alignment: Alignment.bottomRight,
                             child: Icon(Icons.delete_forever),
                           ),
                           key: Key(index.toString()),
